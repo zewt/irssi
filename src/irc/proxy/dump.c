@@ -36,9 +36,10 @@ void proxy_send(CLIENT_REC *client, char *d, int l)
 #ifdef HAVE_OPENSSL
 	if(client->listen->use_ssl) {
 		SSL_write(client->ssl, d, l);
-	} else 
+		return;
+	}
 #endif
-		net_sendbuffer_send(client->handle, d, l);
+	net_sendbuffer_send(client->handle, d, l);
 }
 
 int proxy_readline(CLIENT_REC *client, char **str)
@@ -63,9 +64,9 @@ int proxy_readline(CLIENT_REC *client, char **str)
 			}
 			return recvlen; /* if any other error occurs, this will quit the connection */
 		}
-	} else 
+	}
 #endif
-		return net_sendbuffer_receive_line(client->handle, str, 1);
+	return net_sendbuffer_receive_line(client->handle, str, 1);
 }
 
 void proxy_outdata(CLIENT_REC *client, const char *data, ...)
