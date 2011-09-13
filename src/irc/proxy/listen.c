@@ -669,7 +669,7 @@ static void add_listen(const char *ircnet, int port, char *sslcert)
 			return;
 		}
 		
-		if(SSL_CTX_use_certificate_file(rec->ssl_ctx, sslcert, SSL_FILETYPE_PEM) <= 0) {
+		if(SSL_CTX_use_certificate_chain_file(rec->ssl_ctx, sslcert) <= 0) {
 			printtext(NULL, NULL, MSGLEVEL_CLIENTERROR, "Proxy: Error loading certificate.");
 			SSL_CTX_free(rec->ssl_ctx);
 			g_free(rec->ircnet);
