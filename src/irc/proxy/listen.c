@@ -146,7 +146,7 @@ static void handle_client_connect_cmd(CLIENT_REC *client,
 	}
 }
 
-static void handle_client_cmd(CLIENT_REC *client, char *cmd, char *args,
+static void sig_handle_client_cmd(CLIENT_REC *client, char *cmd, char *args,
 			      const char *data)
 {
 	GSList *tmp;
@@ -334,7 +334,7 @@ static void sig_listen_client(CLIENT_REC *client)
 		if (*args == ':') args++;
 		ascii_strup(cmd);
 
-		handle_client_cmd(client, cmd, args, str);
+		signal_emit("proxy command", 4, client, cmd, args, str);
 
 		g_free(cmd);
 	}
@@ -796,6 +796,7 @@ void proxy_listen_init(void)
 	signal_add("setup changed", (SIGNAL_FUNC) read_settings);
 
 	signal_add("proxy client dump", (SIGNAL_FUNC) sig_dump);
+	signal_add("proxy command", (SIGNAL_FUNC) sig_handle_client_cmd);
 }
 
 void proxy_listen_deinit(void)
@@ -815,4 +816,5 @@ void proxy_listen_deinit(void)
 	signal_remove("setup changed", (SIGNAL_FUNC) read_settings);
 
 	signal_remove("proxy client dump", (SIGNAL_FUNC) sig_dump);
+	signal_remove("proxy command", (SIGNAL_FUNC) sig_handle_client_cmd);
 }

@@ -220,6 +220,7 @@ proxy/listen.c:
  "proxy client command", CLIENT_REC, char *args, char *data
  "proxy client dump", CLIENT_REC, char *data
  "proxy client logged in", CLIENT_REC
+ "proxy command", CLIENT_REC, char *cmd, char *args, char *data
 
 FE common
 ---------
