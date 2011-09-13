@@ -51,13 +51,13 @@ AC_ARG_WITH(bot,
 	want_irssibot=no)
 
 AC_ARG_WITH(proxy,
-[  --with-proxy            Build irssi-proxy],
+[  --without-proxy         Exclude irssi-proxy],
 	if test x$withval = xno; then
 		want_irssiproxy=no
 	else
 		want_irssiproxy=yes
 	fi,
-	want_irssiproxy=no)
+	want_irssiproxy=yes)
 
 AC_ARG_WITH(terminfo,
 [  --without-terminfo      Use curses backend instead of terminfo],
