@@ -219,6 +219,7 @@ proxy/listen.c:
  "proxy client disconnected", CLIENT_REC
  "proxy client command", CLIENT_REC, char *args, char *data
  "proxy client dump", CLIENT_REC, char *data
+ "proxy client logged in", CLIENT_REC
 
 FE common
 ---------

@@ -139,6 +139,8 @@ static void handle_client_connect_cmd(CLIENT_REC *client,
 #endif
 
 			proxy_dump_data(client);
+
+			signal_emit("proxy client logged in", 1, client);
 		}
 	}
 }
