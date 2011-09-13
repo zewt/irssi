@@ -33,13 +33,13 @@ typedef struct {
 
 typedef struct {
 	char *nick, *host;
+	char *client_username;
 	NET_SENDBUF_REC *handle;
 	int recv_tag;
 	char *proxy_address;
 	LISTEN_REC *listen;
 	IRC_SERVER_REC *server;
 	unsigned int pass_sent:1;
-	unsigned int user_sent:1;
 	unsigned int connected:1;
 	unsigned int want_ctcp:1;
 #ifdef HAVE_OPENSSL

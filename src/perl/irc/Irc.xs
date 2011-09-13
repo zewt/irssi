@@ -148,10 +148,10 @@ static void perl_client_fill_hash(HV *hv, CLIENT_REC *client)
 {
 	hv_store(hv, "nick", 4, new_pv(client->nick), 0);
 	hv_store(hv, "host", 4, new_pv(client->host), 0);
+	hv_store(hv, "client_username", 15, new_pv(client->client_username), 0);
 	hv_store(hv, "proxy_address", 13, new_pv(client->proxy_address), 0);
 	hv_store(hv, "server", 6, iobject_bless(client->server), 0);
 	hv_store(hv, "pass_sent", 9, newSViv(client->pass_sent), 0);
-	hv_store(hv, "user_sent", 9, newSViv(client->user_sent), 0);
 	hv_store(hv, "connected", 9, newSViv(client->connected), 0);
 	hv_store(hv, "want_ctcp", 9, newSViv(client->want_ctcp), 0);
 	hv_store(hv, "ircnet", 6, new_pv(client->listen->ircnet), 0);

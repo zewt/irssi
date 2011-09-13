@@ -58,6 +58,7 @@ static void remove_client(CLIENT_REC *rec)
 	g_source_remove(rec->recv_tag);
 	g_free_not_null(rec->nick);
 	g_free_not_null(rec->host);
+	g_free_not_null(rec->client_username);
 	g_free(rec);
 }
 
@@ -123,10 +124,14 @@ static void handle_client_connect_cmd(CLIENT_REC *client,
 		g_free_not_null(client->nick);
 		client->nick = g_strdup(args);
 	} else if (strcmp(cmd, "USER") == 0) {
-		client->user_sent = TRUE;
+		char **parts;
+		parts = g_strsplit(args, " ", -1);
+		g_free_not_null(client->client_username);
+		client->client_username = g_strdup(parts[0] != NULL? parts[0]:"unknown");
+		g_strfreev(parts);
 	}
 
-	if (client->nick != NULL && client->user_sent) {
+	if (client->nick != NULL && client->client_username != NULL) {
 		if (*password != '\0' && !client->pass_sent) {
 			/* client didn't send us PASS, kill it */
 			remove_client(client);
