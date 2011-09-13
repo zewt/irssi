@@ -657,8 +657,9 @@ static void add_listen(const char *ircnet, int port, char *sslcert)
 	if(sslcert != NULL) {
 #ifdef HAVE_OPENSSL
 		rec->use_ssl = TRUE;
-		rec->ssl_method = SSLv3_server_method(); /* let's start with 3 */
+		rec->ssl_method = SSLv23_server_method();
 		rec->ssl_ctx = SSL_CTX_new(rec->ssl_method);
+		SSL_CTX_set_options(rec->ssl_ctx, SSL_OP_NO_SSLv2);
 		if(rec->ssl_ctx == NULL) {
 			printtext(NULL, NULL, MSGLEVEL_CLIENTERROR,
 				"Proxy: Error setting up SSL Context for port %d failed.",
