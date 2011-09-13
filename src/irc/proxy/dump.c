@@ -51,6 +51,8 @@ int proxy_readline(CLIENT_REC *client, char **str)
 		recvlen = SSL_read(client->ssl, tmpbuf, sizeof(tmpbuf));
 		if(recvlen > 0) {
 			return line_split(tmpbuf, recvlen, str, &client->handle->readbuffer);
+		} else if(recvlen == 0) {
+			return -1;
 		} else {
 			int err;
 			err = SSL_get_error(client->ssl, recvlen);
