@@ -44,7 +44,8 @@ static void remove_client(CLIENT_REC *rec)
 	proxy_clients = g_slist_remove(proxy_clients, rec);
 	rec->listen->clients = g_slist_remove(rec->listen->clients, rec);
 
-	signal_emit("proxy client disconnected", 1, rec);
+	if(rec->connected)
+		signal_emit("proxy client disconnected", 1, rec);
 	printtext(NULL, NULL, MSGLEVEL_CLIENTNOTICE,
 		  "Proxy: Client disconnected from %s", rec->host);
 
