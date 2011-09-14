@@ -29,7 +29,6 @@ sub sendbacklog {
 	print "Sending messages >= $mrm";
 
 	while(my ($target, $data) = each(%privmsg_buffer)) {
-		print "target: $target";
 		foreach my $item (@$data) {
 			if($$item{'sequence'} < $mrm) {
 				print "Skipping old message " . $$item{'sequence'};
@@ -43,7 +42,6 @@ sub sendbacklog {
 				my $server = $client->{'server'}->{'nick'};
 			}
 			my $privmsg = ":$$item{'nick'}!$$item{'address'} PRIVMSG $target :$$item{'msg'}";
-			print $privmsg;
 			Irssi::signal_emit('proxy client dump', $client, $privmsg . "\n");
 		}
 	}
@@ -110,7 +108,7 @@ sub privmsg
 	# Update the last_sequence for all connected clients, so this message isn't sent
 	# to them again.
 	while(my ($username, $known_client) = each(%known_clients)) {	
-		print "connected: $username, $$known_client{'logged_in'}";
+		# print "connected: $username, $$known_client{'logged_in'}";
 		# If this client isn't logged in, leave its sequence number alone.
 		if(!$$known_client{'logged_in'}) { next; }
 
