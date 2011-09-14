@@ -99,7 +99,11 @@ sub privmsg
 	push @$output, \%data;
 
 	# Cull old messages for this target.
-	while(scalar(@$output) > 20) {
+	my $max_messages = 20;
+	if($target eq "user") {
+		$max_messages = 100;
+	}
+	while(scalar(@$output) > $max_messages) {
 		shift @$output;
 	}
 
